@@ -2,7 +2,7 @@ require 'spire/http'
 
 module Spire
   class MainController
-    def render(view, content="", type="haml")
+    def render(view, type="haml")
       if type == "html"
         return File.open('./app/views/'+view+'.html', 'r').read
       elsif type == "haml"

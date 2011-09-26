@@ -1,5 +1,5 @@
 class Index
   def index
-    Spire::Response.new("<h1>This is an index page!</h1>")
+    Spire::Response.new("<h1>Hey, an index</h1>")
   end
 end

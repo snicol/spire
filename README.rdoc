@@ -1,0 +1,2 @@
+= Spire
+Refer to snicol/spire for documentation

@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Scott Nicol"]
   s.date = "2011-09-26"
-  s.description = "TODO: longer description of your gem"
+  s.description = "Light rack-based framework with controllers, static views and a router \n    with templating engine support coming soon"
   s.email = "scott@scottnicol.co.uk"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
     "lib/spire/class/MainController.rb",
     "lib/spire/http.rb",
     "lib/spire/router.rb",
+    "spire.gemspec",
     "test/helper.rb",
     "test/test_spire.rb"
   ]
@@ -38,7 +39,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
-  s.summary = "TODO: one-line summary of your gem"
+  s.summary = "A light controller-only rack framework with a dash of views"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3

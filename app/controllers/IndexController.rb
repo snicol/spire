@@ -1,6 +1,5 @@
 class Index < Spire::MainController
   def index
-    content = "test1"
-    render("index", content)    
+    Spire::Response.new(render("index", "haml", ["Index Page", "This is the index page!"])) 
   end
 end

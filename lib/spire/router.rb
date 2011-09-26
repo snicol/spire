@@ -43,7 +43,9 @@ module Spire
     def run
       require "#{@base_path}/controllers/#{@controller_value}Controller"
       @app = Kernel.const_get(@controller_value).new
-      @app.method(@action_value).call
+      @return = {}
+      @return = @app.method(@action_value).call
+      Spire::Response.new(@return)
     end
 
     def call(env)

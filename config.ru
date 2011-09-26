@@ -1,4 +1,5 @@
 require 'rack'
+require 'haml'
 require 'spire'
 
 run Spire::Router.new('./app', {

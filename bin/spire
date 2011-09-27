@@ -4,14 +4,14 @@ require 'optparse'
 options = {}
 
 optparse = OptionParser.new do |opts|
-  opts.banner = "Usage: spire create folder"
+  opts.banner = "Usage: spire create app"
 
 	opts.on('-h', '--help', 'Displays this usage screen') do
 		puts optparse
 		exit
 	end
 
-	opts.on('create', '-c', 'Creates a new app.') do |params|
+	opts.on('-c', '-create DIR', 'Creates a new app/project with given name.') do |params|
 		options[:create] = params
 	end	
 	
@@ -24,6 +24,10 @@ rescue OptionParser::InvalidOption
   exit 1
 end
 
-unless Dir.exists?(options[:create]) 
-	system("git clone git://github.com/snicol/spire-base-app.git #{options[:create]}")
+if options[:create]
+  unless Dir.exists?(options[:create]) 
+	  system("git clone git://github.com/snicol/spire-base-app.git #{options[:create]}")
+  end
+else
+  puts "No arguments given!"
 end

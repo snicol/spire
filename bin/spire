@@ -1,0 +1,27 @@
+require 'optparse'
+
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: spire create folder"
+
+	opts.on('-h', '--help', 'Displays this usage screen') do
+		puts optparse
+		exit
+	end
+
+	options = {}
+	opts.on('create', '-c', 'Creates a new app.') do |params|
+		options[:create] = params
+	end	
+	
+end
+
+begin
+  optparse.parse!
+rescue OptionParser::InvalidOption
+  puts optparse
+  exit 1
+end
+
+unless Dir.exists?(options[:create]) 
+	system("git clone git://github.com/snicol/spire-base-app.git ../#{options[:create]}")
+end

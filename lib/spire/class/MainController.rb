@@ -1,4 +1,5 @@
 require 'spire/http'
+require 'haml' 
 
 module Spire
   class MainController

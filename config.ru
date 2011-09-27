@@ -1,7 +1,6 @@
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 
 require 'rack'
-require 'haml' 
 require 'spire'
 
 run Spire::Router.new('./app', {

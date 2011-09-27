@@ -13,6 +13,8 @@ module Spire
     end
 
     def route
+      @controller_value = nil
+      @action_value = nil
       if @request[:controller] == nil
          route = @routes['default'].split("#")
          @controller_value = route[0].capitalize
@@ -36,8 +38,9 @@ module Spire
       end
         unless @controller_value
           return Response.new('404 - Page or route not found!')
+        else
+          return self.run
         end
-        return self.run
     end 
 
     def run

@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
 
 require 'optparse'
+options = {}
 
 optparse = OptionParser.new do |opts|
   opts.banner = "Usage: spire create folder"
@@ -10,7 +11,6 @@ optparse = OptionParser.new do |opts|
 		exit
 	end
 
-	options = {}
 	opts.on('create', '-c', 'Creates a new app.') do |params|
 		options[:create] = params
 	end	
@@ -25,5 +25,5 @@ rescue OptionParser::InvalidOption
 end
 
 unless Dir.exists?(options[:create]) 
-	system("git clone git://github.com/snicol/spire-base-app.git ../#{options[:create]}")
+	system("git clone git://github.com/snicol/spire-base-app.git #{options[:create]}")
 end

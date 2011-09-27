@@ -28,7 +28,7 @@ pkg
 # For MacOS:
 #
 .DS_Store
-app
+/app
 # For TextMate
 #*.tmproj
 #tmtags

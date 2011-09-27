@@ -2,4 +2,72 @@
 
 Light controller-only rack framework with a dash of views.
 
+= Installation
 
+    gem install spire
+    spire -c project_name
+    cd project_name && rackup
+
+This will install spire, create a project called 'project_name' in the same directory it's run in, and then start the site. 
+
+= Usage 
+
+== Routes
+
+Routes are used in the config.ru, they work like the old-style Rails routes:
+    run Spire::Router.new(path, {
+      "default" => "index#index", # the default route!
+      "/index" => "index#index",
+    })
+The "default" route is what is opened when someone goes to '/' on your address.
+    "/index" => "index#index",
+This would match the '/index' request to the IndexController (in app/controllers) and execute the index method in that controller.
+    "/foo/bar" => "foo#bar"
+That would when '/foo/bar' is requested return the response found in the FooController and the value in Bar that's returned.
+
+== Controllers
+
+Controllers are named to tie with the routes (read above). They are stored in:
+    project_name/app/controllers/
+And must be defined like so:
+    class Test < Spire::MainController
+
+    end
+as a skeleton controller for the framework to use. An example response would look like this:
+    class Index < Spire::MainController
+      def index
+        Spire::Response.new("This is just a response")
+      end
+    end
+This would display a html page with that text. The Response.new initiator could be used like so:
+    Spire::Response.new("<h1>This is a test page</h1>, "text/html", 200)
+Where the first argument is the output, second argument is the content-type and the last the status/response code.
+
+== Views
+
+=== HAML
+HAML templates can be rendered like so:
+    Spire::Response.new(render("index", "haml", ["Welcome to Spire!", 
+      "This is a base app to extend your own on. Have fun!"]))
+This would load the index.haml view in:
+    project_name/app/views/index.haml
+The first argument in the render method above is the file name, the second being the file type, and the last is the content to pass to the view. In the above example, it's an array of two strings.
+To access the data in the view, you have to use the 'data' variable like so:
+    %title= data[0]
+    %h1= data[1]
+This above example would use the first array entry from our render method as a title, and the second array entry for a nice big header.
+
+=== HTML
+HTML are static templates to be used in your project/app, they can't use variables, nor can they execute ruby code. They can be rendered using:
+    Spire::Response.new(render("index", "html"))
+Which would load the 'index.html' file from:
+    project_name/app/views/index.html
+The first argument is the file name, the second being the extension.
+
+= Coming soon...
+More documentation will be coming soon as more features are being added
+=== Error Handler
+=== SASS Support
+=== Improved Response handler
+=== Lots of bugfixes
+=== Some secret goodes!

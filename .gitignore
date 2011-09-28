@@ -30,6 +30,7 @@ pkg
 .DS_Store
 /app
 config.ru
+/test
 # For TextMate
 #*.tmproj
 #tmtags

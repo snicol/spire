@@ -37,7 +37,7 @@ module Spire
         end
       end
         unless @controller_value
-          return Response.new('404 - Page or route not found!')
+          return Error.new('404 - Page or route not found!')
         else
           return self.run
         end

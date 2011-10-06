@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 = spire
 
 Light controller-only rack framework with a dash of views.
@@ -72,7 +71,4 @@ More documentation will be coming soon as more features are being added
 === Improved Response handler
 === Lots of bugfixes
 === Some secret goodes!
-=======
-= Spire
-Refer to snicol/spire for documentation
->>>>>>> c0676ac53f664662f781515b3a8f94a36af273f1
+

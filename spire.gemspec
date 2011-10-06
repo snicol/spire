@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Scott Nicol"]
-  s.date = "2011-09-27"
+  s.date = "2011-10-06"
   s.description = "Light rack-based framework with controllers, static views and a router \n    with templating engine support coming soon"
   s.email = "scott@scottnicol.co.uk"
   s.executables = ["spire"]
@@ -17,21 +17,18 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
-    ".document",
     "Gemfile",
     "Gemfile.lock",
     "README.rdoc",
     "Rakefile",
     "VERSION",
     "bin/spire",
-    "config.ru",
     "lib/spire.rb",
     "lib/spire/class/MainController.rb",
+    "lib/spire/error.rb",
     "lib/spire/http.rb",
     "lib/spire/router.rb",
-    "spire.gemspec",
-    "test/helper.rb",
-    "test/test_spire.rb"
+    "spire.gemspec"
   ]
   s.homepage = "http://github.com/snicol/spire"
   s.licenses = ["MIT"]
@@ -45,12 +42,14 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rack>, [">= 1.3.0"])
       s.add_runtime_dependency(%q<haml>, [">= 3.1.0"])
+      s.add_runtime_dependency(%q<erubis>, [">= 2.7.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
       s.add_dependency(%q<rack>, [">= 1.3.0"])
       s.add_dependency(%q<haml>, [">= 3.1.0"])
+      s.add_dependency(%q<erubis>, [">= 2.7.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
@@ -58,6 +57,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<rack>, [">= 1.3.0"])
     s.add_dependency(%q<haml>, [">= 3.1.0"])
+    s.add_dependency(%q<erubis>, [">= 2.7.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])

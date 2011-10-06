@@ -31,6 +31,8 @@ pkg
 /app
 config.ru
 /test
+/public
+
 # For TextMate
 #*.tmproj
 #tmtags

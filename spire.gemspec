@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Scott Nicol"]
   s.date = "2011-10-06"
-  s.description = "Light rack-based framework with controllers, static views and a router \n    with templating engine support coming soon"
+  s.description = "Light rack-based framework with controllers, HAML & RHTML views, router, error handler and speed!"
   s.email = "scott@scottnicol.co.uk"
   s.executables = ["spire"]
   s.extra_rdoc_files = [

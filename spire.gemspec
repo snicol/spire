@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "spire"
-  s.version = "0.2.2"
+  s.version = "0.2.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Scott Nicol"]
-  s.date = "2011-10-06"
-  s.description = "Light rack-based framework with controllers, HAML & RHTML views, router, error handler and speed!"
+  s.date = "2011-10-07"
+  s.description = "Light rack-based framework with controllers, static views and a router \n    with templating engine support coming soon"
   s.email = "scott@scottnicol.co.uk"
   s.executables = ["spire"]
   s.extra_rdoc_files = [
@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rack>, [">= 1.3.0"])
+      s.add_runtime_dependency(%q<rack-rewrite>, [">= 1.2.1"])
       s.add_runtime_dependency(%q<haml>, [">= 3.1.0"])
       s.add_runtime_dependency(%q<erubis>, [">= 2.7.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -48,6 +49,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
       s.add_dependency(%q<rack>, [">= 1.3.0"])
+      s.add_dependency(%q<rack-rewrite>, [">= 1.2.1"])
       s.add_dependency(%q<haml>, [">= 3.1.0"])
       s.add_dependency(%q<erubis>, [">= 2.7.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -56,6 +58,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<rack>, [">= 1.3.0"])
+    s.add_dependency(%q<rack-rewrite>, [">= 1.2.1"])
     s.add_dependency(%q<haml>, [">= 3.1.0"])
     s.add_dependency(%q<erubis>, [">= 2.7.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])

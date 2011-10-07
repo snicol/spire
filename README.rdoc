@@ -6,7 +6,7 @@ Light controller-only rack framework with a dash of views.
 
     gem install spire
     spire -c project_name
-    cd project_name && rackup
+    cd !$ && rackup
 
 This will install spire, create a project called 'project_name' in the same directory it's run in, and then start the site. 
 
@@ -29,46 +29,47 @@ That would when '/foo/bar' is requested return the response found in the FooCont
 
 Controllers are named to tie with the routes (read above). They are stored in:
     project_name/app/controllers/
-And must be defined like so:
-    class Test < Spire::MainController
+With the naming scheme like so:
+		FooController.rb
+Where Foo is the name of the controller. The name must be camel-cased. All classes must be defined like so:
+    class Foo < Spire::MainController
 
     end
 as a skeleton controller for the framework to use. An example response would look like this:
     class Index < Spire::MainController
       def index
-        Spire::Response.new("This is just a response")
+        "This is just a response"
       end
     end
 This would display a html page with that text. The Response.new initiator could be used like so:
-    Spire::Response.new("<h1>This is a test page</h1>, "text/html", 200)
-Where the first argument is the output, second argument is the content-type and the last the status/response code.
+    def index
+			@status = 200
+			@content_type = "text/html;"
+			return "Hi, I'm a test page!"
+		end
+Where the first instance variable @status is the HTTP status to show, the second being the content type, and the last being the returned value as a string.
 
 == Views
 
+=== RHTML
+RHTML templates are executed using erubis due to its speed. To create a erb view, you must create a view in:
+		/app/views/
+With the naming scheme of:
+		template.rhtml
+The .rhtml is important so Spire knows what file it is. To pass data to a view, you simply define an instance variable before you render the template and it will automatically be accessible in your view template.
+To render a template, you simply use:
+		render("index.rhtml")
+
 === HAML
 HAML templates can be rendered like so:
-    Spire::Response.new(render("index", "haml", ["Welcome to Spire!", 
-      "This is a base app to extend your own on. Have fun!"]))
+    render("index.haml")
 This would load the index.haml view in:
-    project_name/app/views/index.haml
-The first argument in the render method above is the file name, the second being the file type, and the last is the content to pass to the view. In the above example, it's an array of two strings.
-To access the data in the view, you have to use the 'data' variable like so:
-    %title= data[0]
-    %h1= data[1]
-This above example would use the first array entry from our render method as a title, and the second array entry for a nice big header.
+    /app/views/index.haml
+To pass data to the view, define and fill an instance variable with content or an object, and you can use it inside your HAML view.
 
 === HTML
 HTML are static templates to be used in your project/app, they can't use variables, nor can they execute ruby code. They can be rendered using:
-    Spire::Response.new(render("index", "html"))
+    render("index.html")
 Which would load the 'index.html' file from:
     project_name/app/views/index.html
 The first argument is the file name, the second being the extension.
-
-= Coming soon...
-More documentation will be coming soon as more features are being added
-=== Error Handler
-=== SASS Support
-=== Improved Response handler
-=== Lots of bugfixes
-=== Some secret goodes!
-

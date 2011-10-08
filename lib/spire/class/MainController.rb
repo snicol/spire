@@ -16,15 +16,15 @@ module Spire
       type = view.split('.')[1]
 
       if type == "html"
-        File.open(@base_path+'/views/'+view, 'r').read
+        IO.read(@base_path+'/views/'+view)
       elsif type == "haml"
         require 'haml' 
-        file = File.open(@base_path+'/views/'+view, 'r').read
-        Haml::Engine.new(file).render(Object.new, data)
+        contents = IO.read(@base_path+'/views/'+view)
+        Haml::Engine.new(contents).render(Object.new)
       elsif type == "rhtml"
         require 'erubis'
-        file = File.open(@base_path+'/views/'+view, 'r').read
-        eruby = Erubis::Eruby.new(file)
+        contents = IO.read(@base_path+'/views/'+view)
+        eruby = Erubis::Eruby.new(contents)
         return eruby.result(data)
       end
     end

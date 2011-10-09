@@ -14,7 +14,7 @@ module Spire
       end
 
       file_path = File.join(@base_path, 'views', view)
-      return 'File not found' unless File.exists?(file_path)
+      return Error.new(nil, 404) unless File.exists?(file_path)
       contents = IO.read(file_path)
       extension = File.extname(file_path)
 

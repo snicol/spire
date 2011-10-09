@@ -12,20 +12,22 @@ module Spire
       instance_variables.each do |var|
         data[var] = instance_variable_get(var)
       end
-      
-      type = view.split('.')[1]
 
-      if type == "html"
-        File.open(@base_path+'/views/'+view, 'r').read
-      elsif type == "haml"
+      file_path = File.join(@base_path, 'views', view)
+      return 'File not found' unless File.exists?(file_path)
+      contents = IO.read(file_path)
+      extension = File.extname(file_path)
+
+      case extension
+      when '.haml'
         require 'haml' 
-        file = File.open(@base_path+'/views/'+view, 'r').read
-        Haml::Engine.new(file).render(Object.new, data)
-      elsif type == "rhtml"
+        Haml::Engine.new(contents).render(Object.new)
+      when '.rhtml'
         require 'erubis'
-        file = File.open(@base_path+'/views/'+view, 'r').read
-        eruby = Erubis::Eruby.new(file)
-        return eruby.result(data)
+        eruby = Erubis::Eruby.new(contents)
+        eruby.result(data)
+      else
+        contents
       end
     end
     

@@ -7,14 +7,18 @@ module Spire
       @base_path = base_path
     end
     
-    def render(view)
+    def render(opts={})
       data = {}
       instance_variables.each do |var|
         data[var] = instance_variable_get(var)
       end
-
-      file_path = File.join(@base_path, 'views', view)
-      return Error.new(nil, 404) unless File.exists?(file_path)
+      
+      if opts[:text]
+        return opts[:text]
+      end
+            
+      file_path = File.join(@base_path, 'views', opts[:view])
+      return Error.new(:status => 404) unless File.exists?(file_path)
       contents = IO.read(file_path)
       extension = File.extname(file_path)
 

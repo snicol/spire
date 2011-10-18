@@ -35,7 +35,7 @@ module Spire
       end
       
       unless @app["controller"]
-        return Error.new(nil ,404)
+        return Error.new :status => 404
       end
       
       return self.run
@@ -73,6 +73,8 @@ module Spire
       puts response
       if response
         response.to_rack
+      else
+        Error.new :status => 444
       end
     end
   end

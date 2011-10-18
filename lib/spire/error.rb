@@ -1,6 +1,9 @@
 module Spire
     class Error
-        def initialize(message, status='200')
+        def initialize(opts={})
+            status = opts[:status] or 200
+            message = opts[:message] or "Unknown Error"
+            
             case status
             when 200
                 self.return_error(message, status)
@@ -12,6 +15,8 @@ module Spire
                 self.return_204
             when 301
                 self.return_301
+            when 444
+                self.return_444
             end
         end
 
@@ -34,7 +39,11 @@ module Spire
         def return_error(message, status)
             @return = Response.new(message, 'text/html;', status)
         end
-
+          
+        def return_444
+            @return = Response.new("No response made by the server, check for a valid response", 'text/html;', 404)
+        end
+        
         def to_rack
             @return.to_rack
         end

@@ -30,6 +30,8 @@ module Spire
           elsif @request["controller"] == keys[1]
             @app["controller"] = values[0].capitalize
             @app["action"] = values[1]            
+          else
+            return Error.new :status => 404
           end
         end
       end
@@ -62,6 +64,10 @@ module Spire
       content_type = "text/html;"
       status = 200
       
+      if result == 404
+        return Error.new :status => 404
+      end
+      
       if @class.instance_variable_get(:@status)
         status = @class.instance_variable_get(:@status)
       end
@@ -69,7 +75,7 @@ module Spire
       if @class.instance_variable_get(:@content_type) 
         content_type = @class.instance_variable_get(:content_type) 
       end
-      
+            
       return Response.new(result, content_type, status)
     end
 

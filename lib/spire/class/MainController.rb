@@ -21,8 +21,8 @@ module Spire
       if opts[:view].is_a? Array
         @storage = ""
         opts[:view].each do |file|          
-          file_path = File.join($base_path, 'views', file)
-          return Error.new(:status => 404) unless File.exists?(file_path)
+          file_path = File.join($base_path, 'views', file)      
+          return 404 unless File.exists?(file_path)
           contents = IO.read(file_path)
           extension = File.extname(file_path)
 
@@ -42,7 +42,7 @@ module Spire
       end
       
       file_path = File.join($base_path, 'views', opts[:view])
-      return Error.new(:status => 404) unless File.exists?(file_path)
+      return 404 unless File.exists?(file_path)
       contents = IO.read(file_path)
       extension = File.extname(file_path)
 

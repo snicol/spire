@@ -49,7 +49,7 @@ module Spire
     
     def run
       require "#{$base_path}/controllers/#{@app["controller"]}Controller"
-      @class = Kernel.const_get(@app["controller"]).new($base_path)
+      @class = Kernel.const_get(@app["controller"]).new()
     
       result = @class.method(@app["action"]).call
       

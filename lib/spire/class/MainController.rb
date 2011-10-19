@@ -18,6 +18,28 @@ module Spire
         file = contents.extension_check
         return file
       end
+      if opts[:view].is_a? Array
+        @storage = ""
+        opts[:view].each do |file|          
+          file_path = File.join($base_path, 'views', file)
+          return Error.new(:status => 404) unless File.exists?(file_path)
+          contents = IO.read(file_path)
+          extension = File.extname(file_path)
+
+          case extension
+            when '.haml'
+              require 'haml' 
+              @storage = @storage + Haml::Engine.new(contents).render(Object.new)
+            when '.rhtml'
+              require 'erubis'
+              eruby = Erubis::Eruby.new(contents)
+              @storage = @storage + eruby.result(data)
+            else
+              @storage = @storage + contents
+          end
+        end
+       return @storage
+      end
       
       file_path = File.join($base_path, 'views', opts[:view])
       return Error.new(:status => 404) unless File.exists?(file_path)

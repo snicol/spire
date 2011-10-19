@@ -3,10 +3,6 @@ require 'spire/http'
 module Spire
   class MainController
     
-    def initialize(base_path)
-      @base_path = base_path
-    end
-    
     def render(opts={})
       data = {}
       instance_variables.each do |var|
@@ -16,8 +12,14 @@ module Spire
       if opts[:text]
         return opts[:text]
       end
-            
-      file_path = File.join(@base_path, 'views', opts[:view])
+      
+      if opts[:file]
+        contents = Public.new :file => "test.html", :render => true
+        file = contents.extension_check
+        return file
+      end
+      
+      file_path = File.join($base_path, 'views', opts[:view])
       return Error.new(:status => 404) unless File.exists?(file_path)
       contents = IO.read(file_path)
       extension = File.extname(file_path)

@@ -7,6 +7,12 @@ module Spire
       @headers = {'Content-Type' => content_type}
       @status_code = status
     end
+    
+    def manual_response(content, headers, status)
+      @content = content
+      @headers = headers
+      @status_code = status
+    end
 
     def to_rack
       [status_code, headers, [content]]

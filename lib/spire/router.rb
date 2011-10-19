@@ -1,7 +1,7 @@
 module Spire
   class Router
     def initialize(base_path, routes)
-      @base_path = base_path
+      $base_path = base_path
       @routes = routes
       @app = {}
     end
@@ -42,15 +42,22 @@ module Spire
     end 
     
     def return_file
-      # still need to add checks for mime types. this will be done in a seperate class once i get round to it
-      return Response.new(File.open("/public/#{@request["action"]}", "r").read)
+      result = Public.new :file => "test.html", :render => true
+      file = result.extension_check
+      return Response.new(file[:file], file[:content_type], 200)
     end
     
     def run
-      require "#{@base_path}/controllers/#{@app["controller"]}Controller"
-      @class = Kernel.const_get(@app["controller"]).new(@base_path)
+      require "#{$base_path}/controllers/#{@app["controller"]}Controller"
+      @class = Kernel.const_get(@app["controller"]).new($base_path)
     
       result = @class.method(@app["action"]).call
+      
+      if result.is_a? Hash
+        if result[:file]
+          return Response.new(result[:file], result[:content_type], 200)
+        end
+      end
       
       content_type = "text/html;"
       status = 200

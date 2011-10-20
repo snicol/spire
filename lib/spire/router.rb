@@ -12,6 +12,8 @@ module Spire
     end
 
     def route
+      @app["controller"] = nil
+      
       if @request["controller"] == "public"
         self.return_file
       end
@@ -30,13 +32,11 @@ module Spire
           elsif @request["controller"] == keys[1]
             @app["controller"] = values[0].capitalize
             @app["action"] = values[1]            
-          else
-            return Error.new :status => 404
           end
         end
       end
       
-      unless @app["controller"]
+      unless @app["controller"] 
         return Error.new :status => 404
       end
       

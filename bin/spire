@@ -4,14 +4,18 @@ require 'optparse'
 options = {}
 
 optparse = OptionParser.new do |opts|
-  opts.banner = "Usage: spire create app"
+  opts.banner = "Usage: spire -c app"
 
 	opts.on('-h', '--help', 'Displays this usage screen') do
 		puts optparse
 		exit
 	end
+	
+	opts.on('-g', '--generate controller', 'Generates a new view controller') do |params|
+	  options[:generate] = params
+	end
 
-	opts.on('-c', '-create DIR', 'Creates a new app/project with given name.') do |params|
+	opts.on('-c', '--create project', 'Creates a new app/project with given name.') do |params|
 		options[:create] = params
 	end	
 	
@@ -24,10 +28,30 @@ rescue OptionParser::InvalidOption
   exit 1
 end
 
+if options[:generate]
+  if File.directory? 'app/controllers'
+    controller_value = options[:generate].capitalize
+    puts "Creating controller file: #{controller_value}Controller in app/controllers..."
+    controller = File.new("app/controllers/#{controller_value}Controller.rb", "w+")
+    if controller
+      controller.write("class #{controller_value} < Spire::MainController \n\t def index \n\t \t render :text => 'Hello, new controller!' \n\t end \nend
+      ")
+      controller.close
+      puts "Done!"
+    else
+      puts "No file made..."
+    end
+  else
+    puts "No app folder found"
+  end
+end
+
 if options[:create]
   unless Dir.exists?(options[:create]) 
 	  system("git clone git://github.com/snicol/spire-base-app.git #{options[:create]}")
   end
-else
-  puts "No arguments given!"
+end
+
+unless options[:create] or options[:generate]
+  puts "No arguments given. See `spire -h' for documentation."
 end

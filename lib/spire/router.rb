@@ -12,10 +12,8 @@ module Spire
     end
 
     def route
-      @app["controller"] = nil
-      
-      if @request["controller"] == "public"
-        self.return_file
+      if @request["controller"] == "favicon.ico"
+        return self.return_file("favicon.ico")
       end
       
       if @request["controller"] == nil
@@ -43,8 +41,8 @@ module Spire
       return self.run
     end 
     
-    def return_file
-      result = Public.new :file => "test.html", :render => true
+    def return_file(file)
+      result = Public.new :file => file, :render => true
       file = result.extension_check
       return Response.new(file[:file], file[:content_type], 200)
     end

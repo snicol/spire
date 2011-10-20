@@ -34,10 +34,6 @@ module Spire
       @return[:content_type] = @content_type
       return @return
     end
-    
-    def to_rack
-      @return.to_rack
-    end
         
   end
 end

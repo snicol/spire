@@ -8,12 +8,13 @@ module Spire
           ".css" => "text/css",
           ".ics" => "text/calendar",
           ".csv" => "text/csv",
-
+          
           ".png" => "image/png",
           ".jpeg" => "image/jpeg",
           ".gif" => "image/gif",
           ".bmp" => "image/bmp",
           ".tiff" => "image/tiff",
+          ".ico" => "image/image/x-icon",
 
           ".mpeg" => "video/mpeg",
 

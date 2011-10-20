@@ -29,6 +29,7 @@ rescue OptionParser::InvalidOption
 end
 
 if options[:generate]
+  
   if File.directory? 'app/controllers'
     controller_value = options[:generate].capitalize
     puts "Generating..."

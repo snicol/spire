@@ -32,7 +32,8 @@ pkg
 config.ru
 /test
 /public
-
+system.rb
+/system
 # For TextMate
 #*.tmproj
 #tmtags

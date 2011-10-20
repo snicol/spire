@@ -31,18 +31,18 @@ end
 if options[:generate]
   if File.directory? 'app/controllers'
     controller_value = options[:generate].capitalize
-    puts "Creating controller file: #{controller_value}Controller in app/controllers..."
+    puts "Generating..."
     controller = File.new("app/controllers/#{controller_value}Controller.rb", "w+")
     if controller
       controller.write("class #{controller_value} < Spire::MainController \n\t def index \n\t \t render :text => 'Hello, new controller!' \n\t end \nend
       ")
       controller.close
-      puts "Done!"
+      puts "Created controller file: #{controller_value}Controller in app/controllers/"
     else
-      puts "No file made..."
+      puts "No file made, file could not be created for writing."
     end
   else
-    puts "No app folder found"
+    puts "No app folder found to create a controller."
   end
 end
 

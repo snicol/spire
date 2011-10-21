@@ -45,7 +45,11 @@ module Spire
     def return_file(file)
       result = Public.new :file => file, :render => true
       file = result.extension_check
-      return Response.new(file[:file], file[:content_type], 200)
+      if file == 404
+        return Error.new :status => 404, :message => "404 // File not found"
+      else
+        return Response.new(file[:file], file[:content_type], 200)
+      end
     end
     
     def run

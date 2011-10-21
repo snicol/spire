@@ -18,8 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/snicol/spire"
   gem.license = "MIT"
   gem.summary = %Q{A light controller-only rack framework with a dash of views}
-  gem.description = %Q{Light rack-based framework with controllers, static views and a router 
-    with templating engine support coming soon}
+  gem.description = %Q{Light rack-based framework with controllers, HAML/ERB views, router & error handler}
   gem.email = "scott@scottnicol.co.uk"
   gem.authors = ["Scott Nicol"]
   # dependencies defined in Gemfile

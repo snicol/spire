@@ -27,7 +27,7 @@ module Spire
     def create_response
       path = File.expand_path(__FILE__)
       path["lib/spire/public.rb"] = "public/#{@file}"
-      return Error.new(:status => 404) unless File.exists?(path)
+      return Error.new(:status => 404, :message => "404 // File not found") unless File.exists?(path)
       file = IO.read(path)
       @return = {}
       @return[:file] = file

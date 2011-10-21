@@ -12,6 +12,7 @@ module Spire
     end
 
     def route
+      @app["controller"] = nil
       if @request["controller"] == "favicon.ico"
         return self.return_file("favicon.ico")
       end
@@ -34,8 +35,8 @@ module Spire
         end
       end
       
-      unless @app["controller"] 
-        return Error.new :status => 404
+      unless @app["controller"]     
+        return Error.new :message => "404 // Route not found in system/routes.rb", :status => 404
       end
       
       return self.run
@@ -61,9 +62,9 @@ module Spire
       
       content_type = "text/html;"
       status = 200
-      
-      if result == 404
-        return Error.new :status => 404
+            
+      if result == 404 or result == nil
+        return Error.new :message => "404 // No method/Response from method. See #{@app["controller"]}##{@app["action"]} and check for a response", :status => 404
       end
       
       if @class.instance_variable_get(:@status)

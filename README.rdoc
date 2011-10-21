@@ -12,6 +12,12 @@ This will install spire, create a project called 'project_name' in the same dire
 
 = Usage 
 
+== Creating a project
+
+To create a new project you simply use the spire executable like so:
+    spire -c my_project
+and it will make a template app in ./my_project in the folder it was executed.
+
 == Routes
 
 Routes are used in the config.ru, they work like the old-style Rails routes:
@@ -49,6 +55,12 @@ This would display a html page with that text. The Response.new initiator could 
     end
 Where the first instance variable @status is the HTTP status to show, the second being the content type, and the last being the returned value as a string.
 
+=== Controller generator
+ 
+You can generate controllers using the spire executable. To do this you can simply run:
+    spire -g foo
+Which will generate the FooController in the app/controllers directory with all the necessary code for you.
+
 == Views
 
 === RHTML
@@ -58,18 +70,30 @@ With the naming scheme of:
     template.rhtml
 The .rhtml is important so Spire knows what file it is. To pass data to a view, you simply define an instance variable before you render the template and it will automatically be accessible in your view template.
 To render a template, you simply use:
-    render("index.rhtml")
+    render :view => "index.rhtml"
 
 === HAML
 HAML templates can be rendered like so:
-    render("index.haml")
+    render :view => "index.haml"
 This would load the index.haml view in:
     /app/views/index.haml
 To pass data to the view, define and fill an instance variable with content or an object, and you can use it inside your HAML view.
 
 === HTML
 HTML are static templates to be used in your project/app, they can't use variables, nor can they execute ruby code. They can be rendered using:
-    render("index.html")
+    render :view => "index.html"
 Which would load the 'index.html' file from:
     project_name/app/views/index.html
 The first argument is the file name, the second being the extension.
+You could also use:
+		render :file => "index.html" 
+if the html file is in:
+    /public/index.html
+
+== Files
+To return a file from a method, you can use the render method for this task:
+    render :file => "test.pdf"
+This will give the browser the file 'test.pdf' from the /public directory. This method will also match the content-type of this automatically using magic and will give the browser the correct content type and response automatically. This will also give a HTML 404 error page if the file does not exist. 
+
+== Dependencies 
+You will need 'git', 'wget' and 'ruby' and 'rubygems' to get started.

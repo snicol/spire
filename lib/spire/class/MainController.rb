@@ -18,6 +18,7 @@ module Spire
         file = contents.extension_check
         return file
       end
+      
       if opts[:view].is_a? Array
         @storage = ""
         opts[:view].each do |file|          

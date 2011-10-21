@@ -3,21 +3,20 @@ require 'spire/resource/mime'
 module Spire
   class Public
     def initialize(opts={:render=>true})
-      @file = opts[:file]
-      @render = opts[:render]
+      @opts = opts
       mime = Mime.new
       @mime_types = mime.return_mimes
     end
     
     def extension_check
-      file_extension = File.extname(@file)
+      file_extension = File.extname(@opts[:file])
       @mime_types.each do |ext, type|
         if file_extension == ext
           @content_type = type
         end
       end
       
-      if @render
+      if @opts[:render]
         self.create_response
       else
         return [false, @content_type]
@@ -26,7 +25,7 @@ module Spire
     
     def create_response
       path = File.expand_path(__FILE__)
-      path["lib/spire/public.rb"] = "public/#{@file}"
+      path["lib/spire/public.rb"] = "public/#{@opts[:file]}"
       return Error.new(:status => 404, :message => "404 // File not found") unless File.exists?(path)
       file = IO.read(path)
       @return = {}

@@ -15,7 +15,9 @@ module Spire
       @app["controller"] = nil
       
       if @request["controller"] == "favicon.ico"
-        return self.return_file("favicon.ico")
+        favicon = Public.new
+        response = favicon.return_file!("favicon.ico")
+        return Response.new(response, "image/x-icon", 200)
       end
       
       if @request["controller"] == nil

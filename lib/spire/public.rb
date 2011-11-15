@@ -36,6 +36,18 @@ module Spire
         return 404
       end
     end
+    
+    # this is an explicit function and should be avoided
+    def return_file!(file)
+      path = File.expand_path(__FILE__)
+      path["lib/spire/public.rb"] = "public/#{file}"
+      if File.exists?(path)
+        file = IO.read(path)
+        return file
+      else
+        return false
+      end
+    end
         
   end
 end

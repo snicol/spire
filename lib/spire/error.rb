@@ -1,7 +1,6 @@
 module Spire
     class Error
         def initialize(opts={:status => 200, :message=> "Unknown Error"})
-                        
             case opts[:status]
             when 200
                 self.return_error(opts[:message], opts[:status])

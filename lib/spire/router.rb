@@ -13,6 +13,7 @@ module Spire
 
     def route
       @app["controller"] = nil
+      
       if @request["controller"] == "favicon.ico"
         return self.return_file("favicon.ico")
       end

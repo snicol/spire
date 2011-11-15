@@ -14,7 +14,7 @@ module Spire
           ".gif" => "image/gif",
           ".bmp" => "image/bmp",
           ".tiff" => "image/tiff",
-          ".ico" => "image/image/x-icon",
+          ".ico" => "image/x-icon",
 
           ".mpeg" => "video/mpeg",
 

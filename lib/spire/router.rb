@@ -15,9 +15,8 @@ module Spire
       @app["controller"] = nil
       
       if @request["controller"] == "favicon.ico"
-        favicon = Public.new
-        response = favicon.return_file!("favicon.ico")
-        return Response.new(response, "image/x-icon", 200)
+        self.return_file("favicon.ico")
+        @request["controller"] = nil
       end
       
       if @request["controller"] == nil
@@ -38,7 +37,7 @@ module Spire
         end
       end
       
-      unless @app["controller"]     
+      unless @app["controller"]
         return Error.new :message => "404 // Route not found in system/routes.rb", :status => 404
       end
       

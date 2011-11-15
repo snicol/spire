@@ -22,27 +22,33 @@ module Spire
         end
 
         def return_204
-            @return = Response.new("<h1 style='font-family: 'Helvetica Neue', HelveticaNeue, Arial, Helvetica, sans-serif; '>204 - No content<h1>", 'text/html;', 204)
+            @return = Response.new(self.style_error("204 - No content"), 'text/html;', 204)
         end
 
         def return_301
-            @return = Response.new("<h1 style='font-family: 'Helvetica Neue', HelveticaNeue, Arial, Helvetica, sans-serif; '>301 - Moved permanently<h1>", 'text/html;', 301)
+            @return = Response.new(self.style_error("301 - Moved permanently"), 'text/html;', 301)
         end
         
         def return_401
-            @return = Response.new("<h1 style='font-family: 'Helvetica Neue', HelveticaNeue, Arial, Helvetica, sans-serif; '>401 - Not authorized<h1>", 'text/html;', 401)
+            @return = Response.new(self.style_error("401 - Not authorized"), 'text/html;', 401)
         end
         
         def return_404
-            @return = Response.new("<h1 style='font-family: 'Helvetica Neue', HelveticaNeue, Arial, Helvetica, sans-serif; '>404 - Page not found<h1>", 'text/html;', 404)
+            @return = Response.new(self.style_error("404 - Page not found"), 'text/html;', 404)
         end
         
         def return_444
-            @return = Response.new("<h1 style='font-family: 'Helvetica Neue', HelveticaNeue, Arial, Helvetica, sans-serif; '>No response made by the server, check for a valid response<h1>", 'text/html;', 404)
+            @return = Response.new(self.style_error("No response made by the server, check for a valid response"), 'text/html;', 404)
         end
-
+        
+        def style_error(message)
+            return "<h2 style=\"font-family: 'Helvetica Neue', HelveticaNeue, Arial, Helvetica, sans-serif; \">
+                      #{message}
+                    </h2>"
+        end
+        
         def return_error(message, status)
-            @return = Response.new(message, 'text/html;', status)
+            @return = Response.new(self.style_error(message), 'text/html;', status)
         end
 
         def to_rack

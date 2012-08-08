@@ -47,14 +47,14 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<erubis>, [">= 2.7.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<simplecov>, [">= 0.6.0"])
     else
       s.add_dependency(%q<rack>, [">= 1.3.0"])
       s.add_dependency(%q<haml>, [">= 3.1.0"])
       s.add_dependency(%q<erubis>, [">= 2.7.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<simplecov>, [">= 0.6.0"])
     end
   else
     s.add_dependency(%q<rack>, [">= 1.3.0"])
@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<erubis>, [">= 2.7.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-    s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<simplecov>, [">= 0.6.0"])
   end
 end
 

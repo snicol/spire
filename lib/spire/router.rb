@@ -51,7 +51,7 @@ module Spire
       result = @class.method(@app["action"]).call
       buffer = @class.get_buffer
       
-      if !buffer || !result
+      if !buffer && !result
         return Error.new :message => "No method/Response from method. See #{@app["controller"]}##{@app["action"]} and check for a response", :status => 404
       end
 

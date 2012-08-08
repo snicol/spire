@@ -15,8 +15,8 @@ module Spire
       @app["controller"] = nil
       
       if @request["controller"] == "favicon.ico"
-        self.return_file("favicon.ico")
-        @request["controller"] = nil
+        favicon = Public.return_file("favicon.ico")
+        return favicon
       end
       
       if @request["controller"] == nil
@@ -37,43 +37,27 @@ module Spire
         end
       end
       
-      unless @app["controller"]
-        return Error.new :message => "404 // Route not found in system/routes.rb", :status => 404
+      if !@app["controller"]
+        return Error.new :message => "Route not found in system/routes.rb", :status => 404
       end
       
       return self.run
     end 
-    
-    def return_file(file)
-      result = Public.new :file => file, :render => true
-      file = result.extension_check
-      
-      if file == 404
-        return Error.new :status => 404, :message => "404 // File not found"
-      else
-        return Response.new(file[:file], file[:content_type], 200)
-      end
-    end
     
     def run
       require "#{$base_path}/controllers/#{@app["controller"]}Controller"
       @class = Kernel.const_get(@app["controller"]).new()
     
       result = @class.method(@app["action"]).call
+      buffer = @class.get_buffer
       
-      if result.is_a? Hash
-        if result[:file]
-          return Response.new(result[:file], result[:content_type], 200)
-        end
+      if !buffer || !result
+        return Error.new :message => "No method/Response from method. See #{@app["controller"]}##{@app["action"]} and check for a response", :status => 404
       end
-      
+
       content_type = "text/html;"
       status = 200
-            
-      if result == 404 or result == nil
-        return Error.new :message => "404 // No method/Response from method. See #{@app["controller"]}##{@app["action"]} and check for a response", :status => 404
-      end
-      
+
       if @class.instance_variable_get(:@status)
         status = @class.instance_variable_get(:@status)
       end
@@ -81,8 +65,12 @@ module Spire
       if @class.instance_variable_get(:@content_type) 
         content_type = @class.instance_variable_get(:content_type) 
       end
-            
-      return Response.new(result, content_type, status)
+
+      if result
+        buffer = buffer + result
+      end
+
+      return Response.new(buffer, content_type, status)
     end
 
     def call(env)

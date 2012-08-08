@@ -4,13 +4,11 @@ module Spire
   class Public
     def initialize(opts={:render=>true})
       @opts = opts
-      mime = Mime.new
-      @mime_types = mime.return_mimes
     end
     
     def extension_check
       file_extension = File.extname(@opts[:file])
-      @mime_types.each do |ext, type|
+      Mime.return_mimes.each do |ext, type|
         if file_extension == ext
           @content_type = type
         end
@@ -20,6 +18,17 @@ module Spire
         self.create_response
       else
         return [false, @content_type]
+      end
+    end
+
+    def self.return_file(file)
+      result = Public.new :file => file, :render => true
+      file = result.extension_check
+      puts file
+      if file == 404
+        return Error.new :status => 404, :message => "404 // File not found"
+      else
+        return Response.new(file[:file], file[:content_type], 200)
       end
     end
     

@@ -34,7 +34,7 @@ module Spire
         end
         
         def return_404
-            @return = Response.new(self.style_error("404 - Page not found"), 'text/html;', 404)
+            @return = Response.new(self.style_error("404 - File not found"), 'text/html;', 404)
         end
         
         def return_444

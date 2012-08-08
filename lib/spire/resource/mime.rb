@@ -1,7 +1,7 @@
 module Spire
   class Mime
-    def return_mimes
-       return @mime_types = {
+    def self.return_mimes
+       return {
           ".html" => "text/html",
           ".text" => "text/plain",
           ".js" => "text/javascript",

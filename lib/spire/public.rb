@@ -26,7 +26,7 @@ module Spire
       file = result.extension_check
       puts file
       if file == 404
-        return Error.new :status => 404, :message => "404 // File not found"
+        return Error.return_error :status => 404, :message => "404 // File not found"
       else
         return Response.new(file[:file], file[:content_type], 200)
       end

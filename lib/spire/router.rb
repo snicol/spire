@@ -38,7 +38,7 @@ module Spire
       end
       
       if !@app["controller"]
-        return Error.new :message => "Route not found in system/routes.rb", :status => 404
+        return Error.return_error :message => "Route not found in system/routes.rb", :status => 404
       end
       
       return self.run
@@ -52,7 +52,7 @@ module Spire
       buffer = @class.get_buffer
       
       if !buffer && !result
-        return Error.new :message => "No method/Response from method. See #{@app["controller"]}##{@app["action"]} and check for a response", :status => 404
+        return Error.return_error :message => "No method/Response from method. See #{@app["controller"]}##{@app["action"]} and check for a response", :status => 404
       end
 
       content_type = "text/html;"
@@ -65,7 +65,7 @@ module Spire
       if @class.instance_variable_get(:@content_type) 
         content_type = @class.instance_variable_get(:content_type) 
       end
-
+      
       if result
         buffer = buffer + result
       end
@@ -81,7 +81,7 @@ module Spire
       if response
         response.to_rack
       else
-        Error.new :status => 444
+        Error.return_error :status => 444
       end
     end
   end

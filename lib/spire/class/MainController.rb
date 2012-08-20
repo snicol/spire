@@ -1,4 +1,4 @@
-require 'spire/http'
+require 'spire/response'
 require 'spire/resource/buffer'
  
 module Spire

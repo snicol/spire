@@ -5,7 +5,7 @@
 		body {
 			font-family: 'Helvetica Neue';
 			padding-left: 30px;
-			background: #fafafa;
+			background: #fff;
 			padding: 0;
 			margin: 0;
 			margin-bottom: 100px;
@@ -21,29 +21,7 @@
 			padding-left: 5%;
 			padding-right: 5%;
 		}
-		#trace {
-			font-size: 1.2em;
-			width: 80%;
-			margin-left: auto;
-			margin-right: auto;
-			border: 2px solid #D64C49;
-			padding-top: 30px;
-			padding-bottom: 30px;
-		}
-		#footer {
-			position: fixed;
-			bottom: 0px;
-			height: 45px;
-			width: 100%;
-			background-color: #E0FFD3;
-			border-top: 2px solid #484939;
-		}
+
 %body	
 	%h1= @error_code
 	%p= @error_message
-	- if @extended_message
-		%p#trace= @extended_message
-	#footer
-		%a{:href => "http://spire.heroku.com"} Powered by Spire
-		#cocoon
-			%a{:href => "http://wearecocoon.com"} by Cocoon

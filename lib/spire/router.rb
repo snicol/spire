@@ -1,54 +1,37 @@
 module Spire
   class Router
-    def initialize(base_path, routes)
-      $base_path = base_path
-      @routes = routes
-      @app = {}
+    def initialize(map)
+      @map = map
     end
 
-    def disect(env)
-      req = env['REQUEST_PATH'].split("/")
-      @request = {"controller" => req[1], "action" => req[2]}
-    end
+    def route(env)
+      request = Rack::Request.new(env)
+      request_path = env["REQUEST_PATH"]
 
-    def route
-      @app["controller"] = nil
-      
-      if @request["controller"] == "favicon.ico"
-        favicon = Public.return_file("favicon.ico")
-        return favicon
+      if request_path == "/favicon.ico"
+        return Public.return_file "favicon.ico"
       end
-      
-      if @request["controller"] == nil
-         route = @routes['default'].split("#")
-         @app["controller"] = route[0].capitalize
-         @app["action"] = route[1]
-      else
-        @routes.each do |key, value|
-          keys = key.split("/")
-          values = value.split("#")
-          if @request["controller"] == keys[1] && @request["action"] == keys[3]
-            @app["controller"] = values[0].capitalize
-            @app["action"] = values[1]
-          elsif @request["controller"] == keys[1]
-            @app["controller"] = values[0].capitalize
-            @app["action"] = values[1]            
-          end
-        end
+
+      if !@map.exists? request_path
+        return Error.return_error :message => "No route was not found!", :status => 404
       end
-      
-      if !@app["controller"]
-        return Error.return_error :message => "Route not found in system/routes.rb", :status => 404
+
+      if @map.should_use_auto(request_path)
+        params = @map.disect(request_path)
+        return self.run({:controller => params[1], :action => params[2]})
       end
-      
-      return self.run
+
+      return self.run(@map.get(request_path), request)
     end 
     
-    def run
-      require "#{$base_path}/controllers/#{@app["controller"]}Controller"
-      @class = Kernel.const_get(@app["controller"]).new()
+    def run(maps_to, request)
+      path = File.expand_path(__FILE__)
+      path["lib/spire/router.rb"] = "app/controllers"
+
+      require "#{path}/#{maps_to[:controller].capitalize}Controller.rb"
+      @class = Kernel.const_get(maps_to[:controller].capitalize).new(request)
     
-      result = @class.method(@app["action"]).call
+      result = @class.method(maps_to[:action]).call
       buffer = @class.get_buffer
       
       if !buffer && !result
@@ -63,7 +46,7 @@ module Spire
       end
       
       if @class.instance_variable_get(:@content_type) 
-        content_type = @class.instance_variable_get(:content_type) 
+        content_type = @class.instance_variable_get(:@content_type) 
       end
       
       if result
@@ -74,8 +57,7 @@ module Spire
     end
 
     def call(env)
-      self.disect(env)
-      response = self.route
+      response = self.route(env)
 
       puts response
       if response

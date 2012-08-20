@@ -5,36 +5,29 @@ module Spire
     def initialize(opts={:render=>true})
       @opts = opts
     end
-    
-    def extension_check
-      file_extension = File.extname(@opts[:file])
-      Mime.return_mimes.each do |ext, type|
-        if file_extension == ext
-          @content_type = type
-        end
-      end
-      
-      if @opts[:render]
-        self.create_response
-      else
-        return [false, @content_type]
-      end
-    end
 
     def self.return_file(file)
-      result = Public.new :file => file, :render => true
-      file = result.extension_check
-      puts file
-      if file == 404
-        return Error.return_error :status => 404, :message => "404 // File not found"
+      file_object = Public.new :file => file, :render => true
+      file = file_object.create_response
+
+      if file == 404  
+        return Error.return_error :status => 404
       else
         return Response.new(file[:file], file[:content_type], 200)
       end
     end
     
     def create_response
+      file_extension = File.extname(@opts[:file])
+      Mime.return_mimes ? @content_type = Mime.return_mimes[file_extension] : false
+      
+      if !@opts[:render]
+        return [false, @content_type]
+      end
+
       path = File.expand_path(__FILE__)
       path["lib/spire/public.rb"] = "public/#{@opts[:file]}"
+
       if File.exists?(path)
         file = IO.read(path)
         @return = {}

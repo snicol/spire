@@ -22,9 +22,7 @@ module Spire
 		end
 
 		def exists?(url)
-			if @maps[url] == {}
-				return false
-			else
+			unless @maps[url] == {}
 				return true
 			end
 		end

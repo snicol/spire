@@ -8,6 +8,5 @@ gem "erubis", ">= 2.7.0"
 group :development do
   gem "bundler", ">= 1.0.0"
   gem "jeweler", ">= 1.6.4"
-  gem "simplecov", ">= 0.6.0"
 end
 

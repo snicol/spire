@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "spire"
-  s.version = "0.4.9"
+  s.version = "0.4.10"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Scott Nicol"]
-  s.date = "2012-08-11"
+  s.date = "2012-08-29"
   s.description = "Light rack-based framework with controllers, HAML/ERB views, router & error handler"
   s.email = "scott@scottnicol.co.uk"
   s.executables = ["spire"]
@@ -26,10 +26,11 @@ Gem::Specification.new do |s|
     "lib/spire.rb",
     "lib/spire/class/MainController.rb",
     "lib/spire/error.rb",
-    "lib/spire/http.rb",
+    "lib/spire/map.rb",
     "lib/spire/public.rb",
     "lib/spire/resource/buffer.rb",
     "lib/spire/resource/mime.rb",
+    "lib/spire/response.rb",
     "lib/spire/router.rb",
     "lib/spire/templates/error/error.haml",
     "spire.gemspec"

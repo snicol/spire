@@ -5,6 +5,7 @@ module Spire
   
   class MainController
     attr_accessor :buffer
+    attr_reader :request
 
     def initialize(request)
       @buffer = Buffer.new

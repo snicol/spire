@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "spire"
-  s.version = "0.4.10"
+  s.version = "0.4.11"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Scott Nicol"]
-  s.date = "2012-08-29"
+  s.date = "2012-08-30"
   s.description = "Light rack-based framework with controllers, HAML/ERB views, router & error handler"
   s.email = "scott@scottnicol.co.uk"
   s.executables = ["spire"]

@@ -7,9 +7,10 @@ module Spire
     attr_accessor :buffer
     attr_reader :request
 
-    def initialize(request)
+    def initialize(request, app_root)
       @buffer = Buffer.new
       @request = request
+      @app_root = app_root
     end
 
     def get_buffer
@@ -27,8 +28,7 @@ module Spire
       end
 
       if opts[:view]
-        file_path = File.expand_path(__FILE__)
-        file_path["lib/spire/class/MainController.rb"] = "app/views/#{opts[:view]}"
+        file_path = @app_root + "/views/#{opts[:view]}"
         return 404 unless File.exists?(file_path)
         contents = IO.read(file_path)
         extension = File.extname(file_path)

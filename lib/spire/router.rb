@@ -1,7 +1,9 @@
 module Spire
   class Router
-    def initialize(map)
+    def initialize(map, app_root)
       @map = map
+      app_root["config.ru"] = "app"
+      @app_root = app_root
     end
 
     def route(env)
@@ -25,11 +27,8 @@ module Spire
     end 
     
     def run(maps_to, request)
-      path = File.expand_path(__FILE__)
-      path["lib/spire/router.rb"] = "app/controllers"
-
-      require "#{path}/#{maps_to[:controller].capitalize}Controller.rb"
-      @class = Kernel.const_get(maps_to[:controller].capitalize).new(request)
+      require "#{@app_root}/controllers/#{maps_to[:controller].capitalize}Controller.rb"
+      @class = Kernel.const_get(maps_to[:controller].capitalize).new(request, @app_root)
     
       result = @class.method(maps_to[:action]).call
       buffer = @class.get_buffer

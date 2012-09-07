@@ -83,8 +83,7 @@ Which would load the 'index.html' file from:
 == Request data
 To access request data (the whole bleedin' rack ENV!) you just tap into the @request object made available to you.
     @request.POST
-will return a lovely hash of the post paramaters. You can read up on all the methods and properties of this object here:
-[Rack::Request](http://rack.rubyforge.org/doc/classes/Rack/Request.html)
+will return a lovely hash of the post paramaters. You can read up on all the methods and properties of this object here: http://rack.rubyforge.org/doc/classes/Rack/Request.html
 
 == Buffer
 Okay, this is stuff you shouldn't touch (really). Spire uses a buffer that can be written to or cleared if need be.

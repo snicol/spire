@@ -20,23 +20,18 @@ and it will make a template app in ./my_project in the folder it was executed.
 
 == Routes
 
-Routes are used in the config.ru, they work like the old-style Rails routes:
-    run Spire::Router.new(path, {
-      "default" => "index#index", # the default route!
-      "/index" => "index#index",
-    })
-The "default" route is what is opened when someone goes to '/' on your address.
-    "/index" => "index#index",
-This would match the '/index' request to the IndexController (in app/controllers) and execute the index method in that controller.
-    "/foo/bar" => "foo#bar"
-That would when '/foo/bar' is requested return the response found in the FooController and the value in Bar that's returned.
+Routes are used in the config.ru, and are handled using the Map object.
+    map.route :url => "/index", :to => {:controller => "index", :action => "index"}
+
+The "default" route is what is opened when someone goes to '/' on your address. Routes happily along to the IndexController and executes the 'index' method
+    map.route :url => "/", :to => {:controller => "index", :action => "index"}
 
 == Controllers
 
 Controllers are named to tie with the routes (read above). They are stored in:
     project_name/app/controllers/
 With the naming scheme like so:
-		FooController.rb
+    FooController.rb
 Where Foo is the name of the controller. The name must be camel-cased. All classes must be defined like so:
     class Foo < Spire::MainController
 
@@ -80,20 +75,22 @@ This would load the index.haml view in:
 To pass data to the view, define and fill an instance variable with content or an object, and you can use it inside your HAML view.
 
 === HTML
-HTML are static templates to be used in your project/app, they can't use variables, nor can they execute ruby code. They can be rendered using:
+HTML are static templates to be used in your project/app. they can't use variables, nor can they execute ruby code. They can be rendered using:
     render :view => "index.html"
 Which would load the 'index.html' file from:
     project_name/app/views/index.html
-The first argument is the file name, the second being the extension.
-You could also use:
-		render :file => "index.html" 
-if the html file is in:
-    /public/index.html
 
-== Files
-To return a file from a method, you can use the render method for this task:
-    render :file => "test.pdf"
-This will give the browser the file 'test.pdf' from the /public directory. This method will also match the content-type of this automatically using magic and will give the browser the correct content type and response automatically. This will also give a HTML 404 error page if the file does not exist. 
+== Request data
+To access request data (the whole bleedin' rack ENV!) you just tap into the @request object made available to you.
+    @request.POST
+will return a lovely hash of the post paramaters. You can read up on all the methods and properties of this object here:
+    [Rack::Request](http://rack.rubyforge.org/doc/classes/Rack/Request.html)
+
+== Buffer
+Okay, this is stuff you shouldn't touch (really). Spire uses a buffer that can be written to or cleared if need be.
+The buffer is populated by renders, but returns don't touch the buffer. You can access the buffer using:
+    @buffer += "extra stuff for buffer"
+Yup, pretty basic but just around for convenience.
 
 == Dependencies 
 You will need 'git', 'wget' and 'ruby' and 'rubygems' to get started.
